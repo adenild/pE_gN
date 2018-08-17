@@ -1,6 +1,5 @@
 from tkinter import ttk
 import tkinter as tk
-from tkinter.scrolledtext import ScrolledText
 
 font = ('Arial', '10')
 
@@ -15,16 +14,16 @@ class App:
 
         #Renderizar aqui os menus
         self.nb = ttk.Notebook(self.root)
+        self.nb.pack(expand=1, fill="both")
+
         self.page1 = ttk.Frame(self.nb)
         self.nb.add(self.page1, text='Dados Gerais')
-        self.nb.pack(expand=1, fill="both")
 
         self.page2 = ttk.Frame(self.nb)
         self.nb.add(self.page2, text='Saldo')
 
-
-
-
+        self.page3 = ttk.Frame(self.nb)
+        self.nb.add(self.page3, text='Trabalho')
         #Até aqui
 
         #Dados Gerais
@@ -40,10 +39,53 @@ class App:
         self.saldo = ttk.Label(self.page2, text=f'Saldo: {self.valor}')
         self.saldo.pack(fill='both')
 
+        #Trabalho
+        self.dicionario_pedreiro = {'Ajudante de Pedreiro': 50, 'Pedreiro': 100, 'Mestre de Obras': 500}
+        self.dicionario_padeiro = {'Ajudante de Padeiro': 45, 'Padeiro': 95,  'Confeiteiro': 700}
+        self.dicionario_programador = {'Aprendiz de Programador': 55, 'Programador Iniciante': 150,
+                                       'Programador Experiente': 650}
+        self.dicionario_mecanico = {'Aprendiz de Mecânico': 30, 'Gerente de Peças': 150, 'Mecânico Chefe': 1000}
+        self.dicionario_corretor = {'Corretor Novato': 40, 'Corretor da Bolsa': 60, 'Chefe Corretor': 900}
+
+        self.trabalhando = False
+
+        if self.trabalhando == False:
+            self.trabalhos_disponiveis = ttk.Button(self.page3, text=(
+                f"Ajudante de Pedreiro: {self.dicionario_pedreiro['Ajudante de Pedreiro']}"))
+            self.trabalhos_disponiveis2 = ttk.Button(self.page3, text=(
+                f"Ajudante de Padeiro: {self.dicionario_padeiro['Ajudante de Padeiro']}"))
+            self.trabalhos_disponiveis3 = ttk.Button(self.page3, text=(
+                f"Aprendiz de Programador: {self.dicionario_programador['Aprendiz de Programador']}"))
+            self.trabalhos_disponiveis4 = ttk.Button(self.page3, text=(
+                f"Aprendiz de Mecânico: {self.dicionario_mecanico['Aprendiz de Mecânico']}"))
+            self.trabalhos_disponiveis5 = ttk.Button(self.page3, text=(
+                f"Corretor Novato: {self.dicionario_corretor['Corretor Novato']}"))
+
+            self.trabalhos_disponiveis.bind('<Button-1>', self.definir_status_trabalhando)
+            self.trabalhos_disponiveis2.bind('<Button-1>', self.definir_status_trabalhando)
+            self.trabalhos_disponiveis3.bind('<Button-1>', self.definir_status_trabalhando)
+            self.trabalhos_disponiveis4.bind('<Button-1>', self.definir_status_trabalhando)
+            self.trabalhos_disponiveis5.bind('<Button-1>', self.definir_status_trabalhando)
+
+            self.trabalhos_disponiveis.pack()
+            self.trabalhos_disponiveis2.pack()
+            self.trabalhos_disponiveis3.pack()
+            self.trabalhos_disponiveis4.pack()
+            self.trabalhos_disponiveis5.pack()
+
+        else:
+            self.erro = ttk.Label(self.page3, text='Erro!')
+            self.erro.pack()
+
+
         self.progress.pack()
         self.saldo.pack()
 
         self.root.mainloop()
+
+    def definir_status_trabalhando(self, event):
+        self.trabalhando = True
+        print(self.trabalhando)
 
     def carregar(self,event):
         update = 2
