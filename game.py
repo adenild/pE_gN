@@ -47,19 +47,21 @@ class App:
         self.dicionario_mecanico = {'Aprendiz de Mecânico': 30, 'Gerente de Peças': 150, 'Mecânico Chefe': 1000}
         self.dicionario_corretor = {'Corretor Novato': 40, 'Corretor da Bolsa': 60, 'Chefe Corretor': 900}
 
+        self.trabalhos_disponiveis = ttk.Button(self.page3, text=(
+            f"Ajudante de Pedreiro: {self.dicionario_pedreiro['Ajudante de Pedreiro']}"), command=self.definir_status_trabalhando)
+        self.trabalhos_disponiveis2 = ttk.Button(self.page3, text=(
+            f"Ajudante de Padeiro: {self.dicionario_padeiro['Ajudante de Padeiro']}"))
+        self.trabalhos_disponiveis3 = ttk.Button(self.page3, text=(
+            f"Aprendiz de Programador: {self.dicionario_programador['Aprendiz de Programador']}"))
+        self.trabalhos_disponiveis4 = ttk.Button(self.page3, text=(
+            f"Aprendiz de Mecânico: {self.dicionario_mecanico['Aprendiz de Mecânico']}"))
+        self.trabalhos_disponiveis5 = ttk.Button(self.page3, text=(
+            f"Corretor Novato: {self.dicionario_corretor['Corretor Novato']}"))
+
         self.trabalhando = False
 
+        '''
         if self.trabalhando == False:
-            self.trabalhos_disponiveis = ttk.Button(self.page3, text=(
-                f"Ajudante de Pedreiro: {self.dicionario_pedreiro['Ajudante de Pedreiro']}"))
-            self.trabalhos_disponiveis2 = ttk.Button(self.page3, text=(
-                f"Ajudante de Padeiro: {self.dicionario_padeiro['Ajudante de Padeiro']}"))
-            self.trabalhos_disponiveis3 = ttk.Button(self.page3, text=(
-                f"Aprendiz de Programador: {self.dicionario_programador['Aprendiz de Programador']}"))
-            self.trabalhos_disponiveis4 = ttk.Button(self.page3, text=(
-                f"Aprendiz de Mecânico: {self.dicionario_mecanico['Aprendiz de Mecânico']}"))
-            self.trabalhos_disponiveis5 = ttk.Button(self.page3, text=(
-                f"Corretor Novato: {self.dicionario_corretor['Corretor Novato']}"))
 
             self.trabalhos_disponiveis.bind('<Button-1>', self.definir_status_trabalhando)
             self.trabalhos_disponiveis2.bind('<Button-1>', self.definir_status_trabalhando)
@@ -76,14 +78,29 @@ class App:
         else:
             self.erro = ttk.Label(self.page3, text='Erro!')
             self.erro.pack()
+        '''
+        #testes de funcionalidades
+        self.OPTIONS = [
+            f"Ajudante de Pedreiro: {self.dicionario_pedreiro['Ajudante de Pedreiro']}",
+            f"Ajudante de Padeiro: {self.dicionario_padeiro['Ajudante de Padeiro']}",
+            f"Aprendiz de Programador: {self.dicionario_programador['Aprendiz de Programador']}",
+            f"Aprendiz de Mecânico: {self.dicionario_mecanico['Aprendiz de Mecânico']}",
+            f"Corretor Novato: {self.dicionario_corretor['Corretor Novato']}",
+        ]  # etc
 
+        self.variable = tk.StringVar(self.root)
+        self.variable.set(self.OPTIONS[0])  # default value
 
+        self.w = ttk.OptionMenu(self.page3, self.variable, *self.OPTIONS)
+
+        self.trabalhos_disponiveis.pack()
+        self.w.pack()
         self.progress.pack()
         self.saldo.pack()
 
         self.root.mainloop()
 
-    def definir_status_trabalhando(self, event):
+    def definir_status_trabalhando(self):
         self.trabalhando = True
         print(self.trabalhando)
 
